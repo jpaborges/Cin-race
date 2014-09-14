@@ -1,0 +1,95 @@
+module ICorba
+{
+	struct Dimensao
+	{
+		long x;
+		long y;
+	};
+
+	enum Direcao
+	{
+		CIMA,
+		BAIXO,
+		ESQUERDA,
+		DIREITA,
+		NENHUMA
+	};
+	
+	interface IObjeto {	
+		Direcao Colidir(in IObjeto obj);
+		void Morrer();
+		boolean getAtivo();
+		void setAtivo(in boolean ativo);
+		string getStrSprite();
+		void setStrSprite(in string sprite);
+		long getTipo ();
+		void setTipo(in long tipo);
+		Dimensao getPosicao();
+		void setPosicao(in Dimensao Posicao);
+		Dimensao getTamanho();
+		void setTamanho(in Dimensao Tamanho);
+		long getAceleracao();
+		void setAceleracao(in long Aceleracao);
+	};
+
+	interface IObstaculo : IObjeto  {
+
+		boolean criarObstaculo(in boolean ativo, in string sprite, in Dimensao posicao, in Dimensao tamanho, in double funcionalidade);
+		double getFuncionalidade();
+	};
+	
+	interface IPersonagem : IObjeto {
+		Direcao ColidirPersonagem(in IObjeto obj);
+		boolean criarPersonagem (in boolean ativo, in string sprite, in Dimensao posicao, in Dimensao tamanho, in long velocidadeInicial, in long municaoInicial, in boolean spider);
+		boolean ir_esquerda();
+		boolean ir_direita();
+		boolean acelerar();
+		boolean ir_baixo();
+		boolean ir_cima();
+		boolean frear();
+		boolean atirar();
+		void MorrerPersonagem(in long tempo);
+		void mudarImagem();
+
+		//Metodos get e set por causa do Corba.
+		long getScore();
+		double getVelocidade();
+		void setVelocidade(in double velocidade);
+		long getMunicao();
+		void setMunicao(in long municao);
+		IObstaculo getTiro();
+		void setTiro(in IObstaculo tiro);
+		long getTempoFim();
+		void setTempoFim(in long tempoFim);
+		long getObstaculosAtingidos();
+		void setObstaculosAtingidos(in long ObstaculosAtingidos);
+		boolean getGodMod();
+		void setGodMod(in boolean godMod);
+		boolean getEhSpider();
+		void setEhSpider(in boolean ehSpider);
+	};
+	
+	interface IPista{//Terminar isso depois
+		typedef sequence<IObjeto> vetor_objetos;
+		boolean Refresh(in long tempo);
+		void alterarAceleracao(in long aceleracao);
+		void adicionarObjeto(in IObjeto obj);
+		void testarColisoes(in IObjeto obj);
+
+		// get e set do Corba
+		boolean criarPista(in string caminho);
+		boolean getAcabarJogo();
+		void setAcabarJogo(in boolean acabarJogo);
+		long getPosAtual();
+		void setPosAtual(in long posAtual);
+		vetor_objetos getObjetos();
+		void setObjetos(in vetor_objetos objs);
+		void setDimValida(in Dimensao dimValida);
+		string getPathImg();
+		boolean getPausar();
+		void setPausar(in boolean pausado);
+
+	};
+	
+	
+};

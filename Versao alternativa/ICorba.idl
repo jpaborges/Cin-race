@@ -1,0 +1,58 @@
+module ICorba
+{
+	struct Dimensao
+	{
+		long x;
+		long y;
+	};
+
+	enum Direcao
+	{
+		CIMA,
+		BAIXO,
+		ESQUERDA,
+		DIREITA,
+		NENHUMA
+	};
+	struct Sprite
+	{
+		Dimensao posicao;
+		Dimensao tamanho;
+		char strImagem[255];
+		long tipo;
+		boolean ativo;
+	};
+	
+
+	interface IPista{//Terminar isso depois
+		typedef sequence<Sprite> vetor_objetos;
+		boolean Refresh(in long tempo);
+		void alterarAceleracao(in long aceleracao);
+		boolean criarPista(in string caminho, in Dimensao dimValida);
+		boolean getAcabarJogo();
+		void setAcabarJogo(in boolean acabarJogo);
+		long getPosAtual();
+		vetor_objetos getObjetos();
+		string getPathImg();
+		boolean getPausar();
+		void setPausar(in boolean pausado);
+		long criarPersonagem();
+		long getNumeroJogador(); //funcao usada para saber quantos jogadores estao jogando agora
+		void iniciarJogo(in long estagio);
+		long getMunicao(in long player);
+		double getVelocidadein(in long player);
+		void enviar_tecla(in long tecla, in long player); //envia para ser processado para o servidor qual tecla foi precionada
+		void MorrerPersonagem(in long player, in long temporizador);
+		void setGodMod(in long player);
+		boolean getAtivo(in long player);
+		void testarColisoesPersonagem(in long player);
+		void mudarImagemPersonagem(in long player);
+		long getTempoFim(in long player);
+		long getObstaculosAtingidos(in long player);
+		long getScore(in long player);
+		long getID(in long player);
+		Sprite getPersonagem(in long player);
+	};
+	
+	
+};
